@@ -1,24 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react'
-import { read } from './BikeDetailValues'
-export const Reading=(myvalue)=>  
+import { useParams } from 'react-router-dom'
+import { readonebikevalue } from './Connect'
+export const Reading=()=>  
 {
-    const[bikevalue,setBikevalue]=useState({
-        "cusId":"",
-        "cusBikeno":"",
-        "cusName":"",
-        "cusContactno":0,
-        "cusEmail":"",
-        "cusDateofpurchase":""
-    })
+    const {myid}=useParams();
+    const[bikevalue,setBikevalue]=useState({})
     useEffect(()=>
         {
             callreading()
         })
 
-    const callreading=()=>
+    const callreading=async()=>
     {
-        setBikevalue(read(myvalue.who))
+        const t=await  readonebikevalue(myid);
+        setBikevalue(t.data);
     }
     return(
         <>

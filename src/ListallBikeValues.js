@@ -1,6 +1,23 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { DisplayAllbikevalues } from './Connect';
 import './Image.css'
 export const ListallbikeDetails=()=>
 {
+    const[allvalues,setAllvalues]=useState([])
+
+    const myvalues=async()=>
+    {
+        const t=await DisplayAllbikevalues();
+        setAllvalues(t.data);
+    }
+
+    useEffect(
+        ()=>
+        {
+            myvalues()
+        }
+    )
     
     return(
                 <>
@@ -20,7 +37,36 @@ export const ListallbikeDetails=()=>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            {
+                                                allvalues.map((data)=>(
+                                                    <tr>
+                                                        <td>
+                                                            <a href={`reading/${data.cusId}`} className="btn btn-outline-primary">{data.cusId}</a>
+                                                        </td>
+                                                        <td>{data.cusBikeno}</td>
+                                                        <td>{data.cusName}</td>
+                                                        <td>{data.cusContactno}</td>
+                                                        <td>{data.cusEmail}</td>
+                                                        <td>{data.cusDateofpurchase}</td>
+                                                        <td>
+                                                        <a href={`updating/${data.cusId}`} className="btn btn-outline-primary">
+                                                            Update</a>
+                                                            <button className="btn btn-outline-danger"// onClick={
+                                                                // async()=>
+                                                                // {
+                                                                //     const t=await delete();
+                                                                //     alert(t);
+                                                                //     navigator("/listallbikedetails")
+                                                                // }
+                                                            // }>
+                                                            >
+                                                                delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
