@@ -1,5 +1,4 @@
 import axios from "axios";
-import { json } from "react-router-dom";
 
 const url="http://localhost:8080/mybikeproject"
 
@@ -47,5 +46,25 @@ export const readonebikevalue=async(id)=>
 export const updatebikevalue=async(object)=>
 {
     const t=await axios.put(`${url}/updatebikedetails`,object)
+    return t;
+}
+
+export const deletebybikedetails=async(key)=>
+{
+    const t=await axios.delete(`${url}/deletebybikedetails/${key}`)
+    return t;
+
+}
+
+export const createservicedetails=async(object)=>
+{
+    const t=await axios.post(`${url}/createnewservice`,object)
+    alert(JSON.stringify(t.data)+"has been service details added successfully");
+    return t;
+}
+
+export const readbikenumber=async(number)=>
+{
+    const t=await axios.get(`${url}/exactbikenumber/${number}`)
     return t;
 }

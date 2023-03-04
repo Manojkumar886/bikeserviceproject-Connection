@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { DisplayAllbikevalues } from './Connect';
+import { useNavigate } from 'react-router-dom';
+import { deletebybikedetails, DisplayAllbikevalues } from './Connect';
 import './Image.css'
 export const ListallbikeDetails=()=>
 {
+    const navi=useNavigate()
     const[allvalues,setAllvalues]=useState([])
 
     const myvalues=async()=>
@@ -51,16 +53,16 @@ export const ListallbikeDetails=()=>
                                                         <td>
                                                         <a href={`updating/${data.cusId}`} className="btn btn-outline-primary">
                                                             Update</a>
-                                                            <button className="btn btn-outline-danger"// onClick={
-                                                                // async()=>
-                                                                // {
-                                                                //     const t=await delete();
-                                                                //     alert(t);
-                                                                //     navigator("/listallbikedetails")
-                                                                // }
-                                                            // }>
+                                                            <button className="btn btn-outline-danger"
+                                                            onClick={
+                                                                async()=>{
+                                                                    const temp=await deletebybikedetails(data.cusId)
+                                                                    alert(temp.data);
+                                                                    navi("/listallbikedetails")
+                                                                }
+                                                            }
                                                             >
-                                                                delete
+                                                                Delete
                                                             </button>
                                                         </td>
                                                     </tr>
